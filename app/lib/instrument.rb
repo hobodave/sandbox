@@ -34,6 +34,6 @@ module Instrument
       })
     end
 
-    print "#{MultiJson.dump(log_line)}\n"
+    print "#{log_line.to_json}\n"
   end
 end
