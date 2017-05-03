@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20170503182207) do
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-# Could not dump table "nodes" because of following StandardError
-#   Unknown type 'uuid' for column 'id'
+# Could not dump table "nodes" because of following ArgumentError
+#   wrong number of arguments (1 for 2)
 
 end

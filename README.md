@@ -1,24 +1,85 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* JRuby 9.1.8.0
 
-Things you may want to cover:
+# Steps to reproduce
 
-* Ruby version
+1. `bundle install`
+1. `rails db:create`
+1. `rails db:migrate db:seed`
+1. Copy line beginning with `AsyncWorker.perform_async`
+1. Launch rails console: `rails c`
+1. Enter: `100.times { <PASTE ABOVE LINE HERE> }`
+1. In separate terminal: `sidekiq`
 
-* System dependencies
+# Expected (undesired) Output
 
-* Configuration
+```json
+{"time":"2017-05-03 15:02:42 -0500","data":{"event_name":"work","state":"error_logging_error","exception":{"type":"TypeError","message":"no implicit conversion of Hash into String","backtrace":["json/ext/Parser.java:174:in `initialize'","json/ext/Parser.java:151:in `new'","/Users/davida/.rvm/rubies/jruby-9.1.8.0/lib/ruby/stdlib/json/common.rb:155:in `parse'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/decoding.rb:21:in `decode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/coders/json.rb:9:in `load'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/type/serialized.rb:18:in `deserialize'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:140:in `type_cast'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:38:in `value'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:16:in `block in transform_values'","org/jruby/RubyHash.java:1343:in `each'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:15:in `transform_values'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_set.rb:24:in `to_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_methods.rb:276:in `attributes'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serialization.rb:127:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/serialization.rb:17:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serializers/json.rb:99:in `as_json'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/encoding.rb:33:in `encode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/encoding.rb:20:in `encode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/object/json.rb:37:in `to_json'","com/jrjackson/JrJacksonBase.java:70:in `generate'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/jrjackson-0.4.2-java/lib/jrjackson/jrjackson.rb:60:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapters/jr_jackson.rb:20:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapter.rb:25:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json.rb:139:in `dump'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:37:in `log'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:14:in `handle_exception'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:9:in `instrument'","/Users/davida/Develop{"time":"2017-05-03 15:02:42 -0500","data":{"event_name":"work","state":"error_logging_error","exception":{"type":"TypeError","message":"no implicit conversion of Hash into String","backtrace":["json/ext/Parser.java:174:in `initialize'","json/ext/Parser.java:151:in `new'","/Users/davida/.rvm/rubies/jruby-9.1.8.0/lib/ruby/stdlib/json/common.rb:155:in `parse'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/decoding.rb:21:in `decode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/coders/json.rb:9:in `load'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/type/serialized.rb:18:in `deserialize'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:140:in `type_cast'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:38:in `value'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:16:in `block in transform_values'","org/jruby/RubyHash.java:1343:in `each'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:15:in `transform_values'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_set.rb:24:in `to_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_methods.rb:276:in `attributes'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serialization.rb:127:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/serialization.rb:17:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serializers/json.rb:99:in `as_json'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/{"time":"2017-05-03 15:02:42 -0500","data":{"event_name":"work","state":"error_logging_error","exception":{"type":"TypeError","message":"no implicit conversion of Hash into String","backtrace":["json/ext/Parser.java:174:in `initialize'","json/ext/Parser.java:151:in `new'","/Users/davida/.rvm/rubies/jruby-9.1.8.0/lib/ruby/stdlib/json/common.rb:155:in `parse'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/decoding.rb:21:in `decode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/coders/json.rb:9:in `load'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/type/serialized.rb:18:in `deserialize'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:140:in `type_cast'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:38:in `value'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:16:in `block in transform_values'","org/jruby/RubyHash.java:1343:in `each'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:15:in `transform_values'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_set.rb:24:in `to_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_methods.rb:276:in `attributes'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serialization.rb:127:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/serialization.rb:17:in `serializable_hash'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serializers/json.rb:99:in `as_json'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/er/sandbox/app/workers/async_worker.rb:15:in `do_perform'","/Users/davida/Developer/sandbox/app/workers/async_worker.rb:8:in `perform'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:204:in `execute_job'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:175:in `block in process'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:128:in `block in invoke'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:133:in `invoke'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:174:in `block in process'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:146:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_retry.rb:97:in `local'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:145:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/rails.rb:43:in `block in call'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/execution_wrapper.rb:85:in `wrap'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/reloader.rb:68:in `block in wrap'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/execution_wrapper.rb:85:in `wrap'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/reloader.rb:67:in `wrap'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/rails.rb:42:in `call'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:141:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:220:in `stats'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0encoding.rb:33:in `encode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/encoding.rb:20:in `encode'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/object/json.rb:37:in `to_json'","com/jrjackson/JrJacksonBase.java:70:in `generate'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/jrjackson-0.4.2-java/lib/jrjackson/jrjackson.rb:60:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapters/jr_jackson.rb:20:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapter.rb:25:in `dump'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json.rb:139:in `dump'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:37:in `log'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:14:in `handle_exception'","/Users/davida/Developer/sandbox/app/lib/instrument.rb:9:in `instrument'","/Users/davida/Developer/sandbox/app/workers/async_worker.rb:15:in `do_perform'","/Users/davida/Developer/sandbox/app/workers/async_worker.rb:8:in `perform'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:204:in `execute_job'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:175:in `block in process'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:128:in `block in invoke'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:133:in `invoke'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:174:in `block in process'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:146:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_retry.rb:97:in `local'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/proce/lib/sidekiq/processor.rb:136:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_logger.rb:8:in `call'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:135:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_retry.rb:72:in `global'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:134:in `block in dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/logging.rb:32:in `with_context'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:133:in `dispatch'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:173:in `process'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:86:in `process_one'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:73:in `run'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/util.rb:17:in `watchdog'","/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/util.rb:26:in `block in safe_thread'"]}},"level":"info"}
+```
 
-* Database creation
+```
+2017-05-03T20:02:42.632Z 16270 TID-1ks WARN: TypeError: no implicit conversion of Hash into String
+2017-05-03T20:02:42.632Z 16270 TID-1ks WARN: json/ext/Parser.java:174:in `initialize'
+json/ext/Parser.java:151:in `new'
+/Users/davida/.rvm/rubies/jruby-9.1.8.0/lib/ruby/stdlib/json/common.rb:155:in `parse'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/decoding.rb:21:in `decode'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/coders/json.rb:9:in `load'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/type/serialized.rb:18:in `deserialize'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:140:in `type_cast'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute.rb:38:in `value'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:16:in `block in transform_values'
+org/jruby/RubyHash.java:1343:in `each'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/hash/transform_values.rb:15:in `transform_values'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_set.rb:24:in `to_hash'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/attribute_methods.rb:276:in `attributes'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serialization.rb:127:in `serializable_hash'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activerecord-5.0.1/lib/active_record/serialization.rb:17:in `serializable_hash'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activemodel-5.0.1/lib/active_model/serializers/json.rb:99:in `as_json'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/encoding.rb:33:in `encode'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/json/encoding.rb:20:in `encode'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/core_ext/object/json.rb:37:in `to_json'
+com/jrjackson/JrJacksonBase.java:70:in `generate'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/jrjackson-0.4.2-java/lib/jrjackson/jrjackson.rb:60:in `dump'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapters/jr_jackson.rb:20:in `dump'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json/adapter.rb:25:in `dump'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/multi_json-1.12.1/lib/multi_json.rb:139:in `dump'
+/Users/davida/Developer/sandbox/app/lib/instrument.rb:37:in `log'
+/Users/davida/Developer/sandbox/app/lib/instrument.rb:14:in `handle_exception'
+/Users/davida/Developer/sandbox/app/lib/instrument.rb:9:in `instrument'
+/Users/davida/Developer/sandbox/app/workers/async_worker.rb:15:in `do_perform'
+/Users/davida/Developer/sandbox/app/workers/async_worker.rb:8:in `perform'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:204:in `execute_job'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:175:in `block in process'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:128:in `block in invoke'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/middleware/chain.rb:133:in `invoke'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:174:in `block in process'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:146:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_retry.rb:97:in `local'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:145:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/rails.rb:43:in `block in call'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/reloader.rb:68:in `block in wrap'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/execution_wrapper.rb:85:in `wrap'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/activesupport-5.0.1/lib/active_support/reloader.rb:67:in `wrap'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/rails.rb:42:in `call'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:141:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:220:in `stats'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:136:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_logger.rb:8:in `call'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:135:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/job_retry.rb:72:in `global'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:134:in `block in dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/logging.rb:32:in `with_context'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:133:in `dispatch'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:173:in `process'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:86:in `process_one'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/processor.rb:73:in `run'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/util.rb:17:in `watchdog'
+/Users/davida/.rvm/gems/jruby-9.1.8.0@rails5/gems/sidekiq-5.0.0/lib/sidekiq/util.rb:26:in `block in safe_thread'
+```
 
-* Database initialization
+# Notes
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* __*Sometimes*__ the error is not related to JSON serialization, but instead ActiveRecord connection pool contention.
+* If you "seed" the workers with a single job and then start them (or seed them while they have started) then you can load thousands of concurrent jobs without experiencing any concurrency issues
